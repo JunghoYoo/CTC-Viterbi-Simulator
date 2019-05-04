@@ -10,7 +10,7 @@
 #include <time.h>
 using namespace std;
 
-//#define DEBUG_PRINT
+#define DEBUG_PRINT
 
 int main(void)
 {
@@ -19,8 +19,8 @@ int main(void)
 	unsigned int i;
 	unsigned int k;
 	unsigned long minerr = 100;
-	unsigned long miniteration = 100000;
-	unsigned long maxiteration = 10000000;
+	unsigned long miniteration = 10000;// 00;
+	unsigned long maxiteration = 100000;// 00;
 	unsigned long trial;
 
 	BIT datain[4800];
@@ -37,8 +37,8 @@ int main(void)
 
 	FECEncoder.m_MCS 			= WIMAX::QPSK_1_2;
 	FECEncoder.m_HARQ 			= WIMAX::NO;
-	FECEncoder.m_BurstSize 		= 6;  // byte
-	FECEncoder.m_Ns 			= 1;  // number of allocated slot
+	FECEncoder.m_BurstSize 		= 60;  // byte
+	FECEncoder.m_Ns 			= 10;  // number of allocated slot
 
 	FECEncoder.m_SPID			= 0;
 	FECEncoder.m_SubpacketIndex	= 0;
@@ -65,7 +65,7 @@ int main(void)
 	cout << "SNR,    BER, Trials,  biterr";
 	cout << endl;
 
-	srand(time((unsigned int)0));
+	srand((unsigned int)time((unsigned int)0));
 
 	for (k = 0; k < SNRdB_length; k++)
 	{ 
@@ -222,4 +222,3 @@ int main(void)
 
 	return 0;	
 }
-

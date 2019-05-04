@@ -105,14 +105,14 @@ void Demodulator::QPSKDemodulate(SIGNAL in, BYTE * out)
 	else if(out0 <= -2)
 		out[0] = -128; // MIN 0
 	else
-		out[0] = out0 * 64;
+		out[0] = (BYTE) out0 * 64;
 
 	if(out1 >= 2)
 		out[1] = 127; // MAX 1
 	else if(out1 <= -2)
 		out[1] = -128; // MIN 0
 	else
-		out[1] = out1 * 64;
+		out[1] = (BYTE) out1 * 64;
 }
 
 void Demodulator::QAM16Demodulate(SIGNAL in, BYTE * out)
@@ -138,22 +138,22 @@ void Demodulator::QAM16Demodulate(SIGNAL in, BYTE * out)
 //	const SIGNAL B0110(  SQRT3_10, -SQRT1_10); // b0=0, b1=1 b2=1, b3=0
 
 	if((short)in.real > (((short)(SQRT2_10))) )
-		out[0] = (BYTE)(-GAIN * SQRT8_10 * in.real) + (GAIN * 0.8f); 	// inphase
+		out[0] = (BYTE)((-GAIN * SQRT8_10 * in.real) + (GAIN * 0.8f)); 	// inphase
 	else if((short)in.real > (((short)(-SQRT2_10))) )
-		out[0] = (BYTE)(-GAIN * SQRT4_10) * in.real; 				// inphase
+		out[0] = (BYTE)((-GAIN * SQRT4_10) * in.real); 				// inphase
 	else
-		out[0] = (BYTE)(-GAIN * SQRT8_10 * in.real) - (GAIN * 0.8f); 	// inphase
+		out[0] = (BYTE)((-GAIN * SQRT8_10 * in.real) - (GAIN * 0.8f)); 	// inphase
 
-	out[1] = (BYTE)(GAIN * SQRT4_10 * in.real) - (GAIN * 0.8f); 	// inphase
+	out[1] = (BYTE)((GAIN * SQRT4_10 * in.real) - (GAIN * 0.8f)); 	// inphase
 
 	if((short)in.imag > (((short)(SQRT2_10))) )
-		out[2] = (BYTE)(-GAIN * SQRT8_10 * in.imag) + (GAIN * 0.8f); 	// quadrature
+		out[2] = (BYTE)((-GAIN * SQRT8_10 * in.imag) + (GAIN * 0.8f)); 	// quadrature
 	else if((short)in.imag > (((short)(-SQRT2_10))) )
-		out[2] = (BYTE)(-GAIN * SQRT4_10 * in.imag); 				// quadrature
+		out[2] = (BYTE)((-GAIN * SQRT4_10 * in.imag)); 				// quadrature
 	else
-		out[2] = (BYTE)(-GAIN * SQRT8_10 * in.imag) - (GAIN * 0.8f); 	// quadrature
+		out[2] = (BYTE)((-GAIN * SQRT8_10 * in.imag) - (GAIN * 0.8f)); 	// quadrature
 
-	out[3] = (BYTE)(GAIN * SQRT4_10 * in.imag) - (GAIN * 0.8f); 	// quadrature
+	out[3] = (BYTE)((GAIN * SQRT4_10 * in.imag) - (GAIN * 0.8f)); 	// quadrature
 }
 
 void Demodulator::QAM64Demodulate(SIGNAL in, BYTE * out)
@@ -233,61 +233,61 @@ void Demodulator::QAM64Demodulate(SIGNAL in, BYTE * out)
  */
 
 	if(in.real > SQRT6_42 )
-		out[0] = (BYTE)(GAIN * SQRT16_42) * (in.real - SQRT3_42);	// inphase
+		out[0] = (BYTE)((GAIN * SQRT16_42) * (in.real - SQRT3_42));	// inphase
 	else if(in.real > SQRT4_42 )
-		out[0] = (BYTE)(GAIN * SQRT12_42) * (in.real - SQRT2_42);	// inphase
+		out[0] = (BYTE)((GAIN * SQRT12_42) * (in.real - SQRT2_42));	// inphase
 	else if(in.real > SQRT2_42 )
-		out[0] = (BYTE)(GAIN * SQRT8_42)  * (in.real - SQRT1_42);	// inphase
+		out[0] = (BYTE)((GAIN * SQRT8_42)  * (in.real - SQRT1_42));	// inphase
 	else if(in.real > -SQRT2_42 )
-		out[0] = (BYTE)(GAIN * SQRT4_42)  * (in.real);	// inphase
+		out[0] = (BYTE)((GAIN * SQRT4_42)  * (in.real));	// inphase
 	else if(in.real > -SQRT4_42 )
-		out[0] = (BYTE)(GAIN * SQRT8_42)  * (in.real + SQRT1_42);	// inphase
+		out[0] = (BYTE)((GAIN * SQRT8_42)  * (in.real + SQRT1_42));	// inphase
 	else if(in.real > -SQRT6_42 )
-		out[0] = (BYTE)(GAIN * SQRT12_42) * (in.real + SQRT2_42);	// inphase
+		out[0] = (BYTE)((GAIN * SQRT12_42) * (in.real + SQRT2_42));	// inphase
 	else
-		out[0] = (BYTE)(GAIN * SQRT16_42) * (in.real + SQRT3_42);	// inphase
+		out[0] = (BYTE)((GAIN * SQRT16_42) * (in.real + SQRT3_42));	// inphase
 
 
 	if((in.real > SQRT6_42 )||(in.real < -SQRT6_42 ))
-		out[1] = (BYTE)(GAIN * SQRT8_42) * (-in.real + SQRT5_42); // inphase
+		out[1] = (BYTE)((GAIN * SQRT8_42) * (-in.real + SQRT5_42)); // inphase
 	else if((in.real > SQRT2_42 )||(in.real < -SQRT2_42 ))
-		out[1] = (BYTE)(GAIN * SQRT4_42) * (-in.real + SQRT4_42); // inphase
+		out[1] = (BYTE)((GAIN * SQRT4_42) * (-in.real + SQRT4_42)); // inphase
 	else
-		out[1] = (BYTE)(GAIN * SQRT8_42) * (-in.real + SQRT3_42); // inphase
+		out[1] = (BYTE)((GAIN * SQRT8_42) * (-in.real + SQRT3_42)); // inphase
 
 
 	if((in.real > SQRT4_42 )||(in.real < -SQRT4_42 ))
-		out[2] = (BYTE)(GAIN * SQRT4_42) * (-in.real + SQRT6_42); // inphase
+		out[2] = (BYTE)((GAIN * SQRT4_42) * (-in.real + SQRT6_42)); // inphase
 	else
-		out[2] = (BYTE)(GAIN * SQRT4_42) * ( in.real - SQRT2_42); // inphase
+		out[2] = (BYTE)((GAIN * SQRT4_42) * ( in.real - SQRT2_42)); // inphase
 
 
 	if(in.imag > SQRT6_42 )
-		out[3] = (BYTE)(GAIN * SQRT16_42) * (in.imag - SQRT3_42);	// quadrature
+		out[3] = (BYTE)((GAIN * SQRT16_42) * (in.imag - SQRT3_42));	// quadrature
 	else if(in.imag > SQRT4_42 )
-		out[3] = (BYTE)(GAIN * SQRT12_42) * (in.imag - SQRT2_42);	// quadrature
+		out[3] = (BYTE)((GAIN * SQRT12_42) * (in.imag - SQRT2_42));	// quadrature
 	else if(in.imag > SQRT2_42 )
-		out[3] = (BYTE)(GAIN * SQRT8_42)  * (in.imag - SQRT1_42);	// quadrature
+		out[3] = (BYTE)((GAIN * SQRT8_42)  * (in.imag - SQRT1_42));	// quadrature
 	else if(in.imag > -SQRT2_42 )
-		out[3] = (BYTE)(GAIN * SQRT4_42)  * (in.imag);	// quadrature
+		out[3] = (BYTE)((GAIN * SQRT4_42)  * (in.imag));	// quadrature
 	else if(in.imag > -SQRT4_42 )
-		out[3] = (BYTE)(GAIN * SQRT8_42)  * (in.imag + SQRT1_42);	// quadrature
+		out[3] = (BYTE)((GAIN * SQRT8_42)  * (in.imag + SQRT1_42));	// quadrature
 	else if(in.imag > -SQRT6_42 )
-		out[3] = (BYTE)(GAIN * SQRT12_42) * (in.imag + SQRT2_42);	// quadrature
+		out[3] = (BYTE)((GAIN * SQRT12_42) * (in.imag + SQRT2_42));	// quadrature
 	else
-		out[3] = (BYTE)(GAIN * SQRT16_42) * (in.imag + SQRT3_42);	// quadrature
+		out[3] = (BYTE)((GAIN * SQRT16_42) * (in.imag + SQRT3_42));	// quadrature
 
 
 	if((in.imag > SQRT6_42 )||(in.imag < -SQRT6_42 ))
-		out[4] = (BYTE)(GAIN * SQRT8_42) * (-in.imag + SQRT5_42); // quadrature
+		out[4] = (BYTE)((GAIN * SQRT8_42) * (-in.imag + SQRT5_42)); // quadrature
 	else if((in.imag > SQRT2_42 )||(in.imag < -SQRT2_42 ))
-		out[4] = (BYTE)(GAIN * SQRT4_42) * (-in.imag + SQRT4_42); // quadrature
+		out[4] = (BYTE)((GAIN * SQRT4_42) * (-in.imag + SQRT4_42)); // quadrature
 	else
-		out[4] = (BYTE)(GAIN * SQRT8_42) * (-in.imag + SQRT3_42); // quadrature
+		out[4] = (BYTE)((GAIN * SQRT8_42) * (-in.imag + SQRT3_42)); // quadrature
 
 
 	if((in.imag > SQRT4_42 )||(in.imag < -SQRT4_42 ))
-		out[5] = (BYTE)(GAIN * SQRT4_42) * (-in.imag + SQRT6_42); // quadrature
+		out[5] = (BYTE)((GAIN * SQRT4_42) * (-in.imag + SQRT6_42)); // quadrature
 	else
-		out[5] = (BYTE)(GAIN * SQRT4_42) * ( in.imag - SQRT2_42); // quadrature
+		out[5] = (BYTE)((GAIN * SQRT4_42) * ( in.imag - SQRT2_42)); // quadrature
 }

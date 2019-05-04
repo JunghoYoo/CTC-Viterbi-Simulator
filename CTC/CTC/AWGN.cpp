@@ -52,7 +52,7 @@ void AWGN::Add(SIGNAL * in, SIGNAL * out, unsigned long size) {
 	float noise_real, noise_imag;
 	float noise_pwr;
 
-	m_SNRlinear = pow((double)10, (0.1f*(m_SNRdB)));
+	m_SNRlinear = (float) pow((double)10, (0.1f*(m_SNRdB)));
 	noise_pwr = 1/m_SNRlinear;
 
 	for(index=0;index<size;index++)
