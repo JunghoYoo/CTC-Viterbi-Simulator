@@ -1,4 +1,4 @@
-"# LDPC-CTC-WiMAX-Simulator" 
+C++ implemenation of LDPC/CTC for WiMAX 
 
 This project is implemented using IEEE 802.16-2009.
 
